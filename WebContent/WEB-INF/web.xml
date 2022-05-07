@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	version="4.0">
+	<display-name>Day0412_JSP</display-name>
+
+	<servlet>
+		<servlet-name>memberServlet</servlet-name>
+		<servlet-class>servlet.MemberServlet</servlet-class>
+	</servlet>
+	<!-- 서블릿이 처리할 url (요청 주소) 매핑 @Webservlet("/") -->
+	<servlet-mapping>
+		<servlet-name>memberServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<filter>
+		<filter-name>loginCheckFilter</filter-name>
+		<filter-class>filter.LoginCheckFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>loginCheckFilter</filter-name>
+		<url-pattern>/main</url-pattern>
+		<url-pattern>/logout</url-pattern>
+		<url-pattern>/memberList</url-pattern>
+		<url-pattern>/modify</url-pattern>
+		<url-pattern>/modifyForm</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>nullParameter</filter-name>
+		<filter-class>filter.NullParameterFilter</filter-class>
+		<!-- 필터 초기화에 필요한 파라미터 작성 -->
+		<init-param>
+			<param-name>parameterName</param-name>
+			<param-value>id,name</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>nullParameter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	
+</web-app>
